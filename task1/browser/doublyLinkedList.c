@@ -18,7 +18,7 @@ struct Node * createList(char *page)
 
 void insert(struct Node **pList, char *page)
 {
-    struct Node *p = createNode(page);
+    struct Node *p = createList(page);
     p->next = *pList;
     (*pList)->prev = p;
     *pList = p;
@@ -27,10 +27,11 @@ void insert(struct Node **pList, char *page)
 void delete(struct Node **pList)
 {
     struct Node *p = *pList;
-    *pList = (*pList)->next;
+    *pList = (*pList)->prev;
     if (*pList != NULL) {
-        (*head)->prev = NULL;
+        (*pList)->next = NULL;
     }
+    free(p->page);
     free(p);
 }
 
@@ -45,7 +46,7 @@ void printListForward(struct Node *list)
 
 void printListReverse(struct Node *list)
 {
-    struct Node *p = localeinfo_struct;
+    struct Node *p = list;
     while (p->next != NULL) {
         p = p->next;
     }
@@ -55,4 +56,17 @@ void printListReverse(struct Node *list)
         p = p->prev;
     }
     printf("\n");
+}
+
+void clear(struct Node **pList)
+{
+    struct Node *p = *pList;
+    while (p->next != NULL)
+    {
+        p = p->next;
+    }
+    while (p != NULL)
+    {
+        delete(&p);
+    }
 }
