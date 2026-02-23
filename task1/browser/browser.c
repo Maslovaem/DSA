@@ -1,6 +1,6 @@
 #include "browser.h"
 
-struct command parser(char *request)
+/*struct command parser(char *request)
 {
     struct command result;
 
@@ -17,12 +17,28 @@ struct command parser(char *request)
         result.opcode = VISIT;
         result.site = value;
     }
-    return result;
-}
 
+    free(opcode);
+}
+*/
 void browser(struct Node **pList, char *request)
 {
-    struct command parsed = parser(request);
+    struct command parsed;
+
+    char* cringe = strdup(request);
+    char* opcode = strtok(cringe, " ");
+    char* value = strtok(0, " ");
+
+    if (!strcmp("forward", opcode)) {
+        parsed.opcode = FORWARD;
+        parsed.value = atoi(value);
+    } else if (!strcmp("back", opcode)) {
+        parsed.opcode = BACK;
+        parsed.value = atoi(value);
+    } else if (!strcmp("visit", opcode)) {
+        parsed.opcode = VISIT;
+        parsed.site = value;
+    }
 
     if(parsed.opcode == BACK) {
         int N = parsed.value;
@@ -45,15 +61,17 @@ void browser(struct Node **pList, char *request)
     }
 
     if(parsed.opcode == VISIT) {
-        char *site = parsed.site;
+        char site[MAX_REQUEST];
+	strcpy(site, parsed.site);
 
         if((*pList)->prev != NULL){
             struct Node *victimList = (*pList)->prev;
             victimList->next = NULL;
 
-            while (victimList->prev != NULL)
+            while (victimList != NULL)
                 delete(&victimList);
         }
         insert(pList, site);
     }
+    free(cringe);
 }
