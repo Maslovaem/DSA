@@ -45,7 +45,7 @@ void parser (char *str, struct Node **pStack)
 
 char * formDir(struct Node *stack)
 {
-    char *result = (char *)malloc(PATH_MAX * sizeof(char));
+    char *result = (char *)malloc(MAX_DIR_LEN * sizeof(char));
 
     result[0] = '\0';
 
