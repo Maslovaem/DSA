@@ -31,7 +31,7 @@ void delete(struct Node **pList)
     if (*pList != NULL) {
         (*pList)->next = NULL;
     }
-    printf("%s\n",p->page);
+    //printf("%s\n",p->page);
     free(p->page);
     free(p);
 }

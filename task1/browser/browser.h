@@ -16,7 +16,6 @@ struct command {
     char *site;
 };
 
-struct command parser(char *request);
 void browser(struct Node **list, char *request);
 
 #endif

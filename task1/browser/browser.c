@@ -1,33 +1,12 @@
 #include "browser.h"
 
-/*struct command parser(char *request)
-{
-    struct command result;
-
-    char* opcode = strtok(strdup(request), " ");
-    char* value = strtok(0, " ");
-
-    if (!strcmp("forward", opcode)) {
-        result.opcode = FORWARD;
-        result.value = atoi(value);
-    } else if (!strcmp("back", opcode)) {
-        result.opcode = BACK;
-        result.value = atoi(value);
-    } else if (!strcmp("visit", opcode)) {
-        result.opcode = VISIT;
-        result.site = value;
-    }
-
-    free(opcode);
-}
-*/
 void browser(struct Node **pList, char *request)
 {
     struct command parsed;
 
-    char* cringe = strdup(request);
-    char* opcode = strtok(cringe, " ");
-    char* value = strtok(0, " ");
+    char *strCpy = strdup(request);
+    char *opcode = strtok(strCpy, " ");
+    char *value = strtok(0, " ");
 
     if (!strcmp("forward", opcode)) {
         parsed.opcode = FORWARD;
@@ -73,5 +52,5 @@ void browser(struct Node **pList, char *request)
         }
         insert(pList, site);
     }
-    free(cringe);
+    free(strCpy);
 }

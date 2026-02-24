@@ -16,7 +16,10 @@ int main()
         }
 
         if(!strcmp("q", input))
+	{   
+	    clear(&list);
             break;
+	}
 
         browser(&list, input);
         printf("%s\n", list->page);
